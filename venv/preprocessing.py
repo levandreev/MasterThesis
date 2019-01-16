@@ -14,7 +14,7 @@ nlp = spacy.load('en_core_web_sm') # Language Model
 # print(ds)
 # ds.to_csv('C:/Users/D072828/PycharmProjects/Thesis/venv/to_be_preprocessed_100_k.csv', index = False, header = False)
 
-with open('C:/Users/D072828/PycharmProjects/Master_Thesis/venv/to_be_preprocessed_10_k.csv', newline='') as csvfile:
+with open('to_be_preprocessed_10k.csv', newline='') as csvfile:
     yelp = csv.reader(csvfile, delimiter=',')
     for row in itertools.islice(yelp, N):
          clean_row = row[1].strip().replace('"','').replace(';','')
@@ -48,5 +48,5 @@ for row in corpus:
 
 d ={'sentiment': y, 'document': preprocessed_corpus}
 df = pd.DataFrame(data=d)
-df.to_csv('preprocessed_1k.csv', index = False, header = False)
+df.to_csv('preprocessed_10k.csv', index = False, header = False)
 print(df)
