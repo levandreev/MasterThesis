@@ -5,7 +5,7 @@ import itertools
 
 corpus = []
 y = []
-N = 1000
+N = 100000
 
 nlp = spacy.load('en_core_web_sm') # Language Model
 #
