@@ -20,7 +20,7 @@ from sklearn.utils.fixes import signature
 import itertools
 import math
 
-N = [1000,2000,3000, 4000, 5000, 6000]
+N = [1000,2000,3000, 4000, 5000, 6000, 10000]
 plot_f1 = []
 mse_array = []
 std_dev_array = []
@@ -30,7 +30,7 @@ std_error_array = []
 def calculate_avg_f1_per_dataset(slice):
     # classifier = GaussianNB()
     # classifier = SVC(kernel='rbf') # Gives warning
-    classifier = LinearSVC(random_state=0, tol=1e-5, C=100)
+    classifier = LinearSVC(random_state=0, tol=1e-5, C=1)
     # classifier = KNeighborsClassifier(n_neighbors=3)
     corpus = []
     y = []
@@ -112,5 +112,12 @@ print('Standatd Deviation values', std_dev_array)
 print('Standatd Error values', std_error_array)
 # plt.plot(plot_f1, 'ro')
 plt.errorbar(N, plot_f1, std_error_array, linestyle='None', marker='.')
+d ={'F1': plot_f1, 'Standard Error': std_error_array}
+df = pd.DataFrame(data=d)
+print(df)
+# plt.ylim(0.80, 0.88)
 plt.show()
 
+df.to_csv('results.csv', index = False, header = True)
+
+# plt.savefig('polarity_10k_c100.png')
