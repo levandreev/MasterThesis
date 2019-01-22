@@ -8,11 +8,12 @@ import spacy
 #     print(token.text)
 #     print(token.is_stop)
 
-df = pd.read_csv('C:/Users/D072828/PycharmProjects/Master_Thesis/venv/train_full.csv', header=None, nrows=100000)
+# df = pd.read_csv('C:/Users/D072828/PycharmProjects/Master-Thesis/venv/train_full.csv', header=None, nrows=100000)
+df = pd.read_csv('C:/Users/D072828/Desktop/Master Thesis/Datasets for thesis/yelp_review_full_csv/train.csv', header=None, nrows=100000)
 ds = df.sample(frac=1)
 
 print(ds)
 
-ds.to_csv('shuffled_.csv', index = False, header = False)
+ds.to_csv('shuffled_full_100k_v3.csv', index = False, header = False)
 
 
