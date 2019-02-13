@@ -38,7 +38,7 @@ def calculate_f1_array_per_dataset(slices):
     corpus = []
     y = []
     plot_f1 = []
-    with open('preprocessed_amazon_polarity_100k.csv', newline='') as csvfile:
+    with open('preprocessed_ag_100k_noun.csv', newline='') as csvfile:
         yelp = csv.reader(csvfile, delimiter=',')
         for slice in slices:
             for row in itertools.islice(yelp, slice):
@@ -138,8 +138,8 @@ df = pd.DataFrame(data=d)
 # df.to_csv('results_polarity_100k.csv', index = False, header = True)
 
 plt.errorbar(N, plot_f1, std_error_array, linestyle='None', marker='.')
-plt.savefig('amazon_polarity_100k_f1.png')
+plt.savefig('ag_100k_noun_f1.png')
 plt.clf()
 plt.errorbar(N, plot_accuracy, std_error_array, linestyle='None', marker='.')
-plt.savefig('amazon_polarity_100k_acc.png')
+plt.savefig('ag_100k_noun_acc.png')
 
