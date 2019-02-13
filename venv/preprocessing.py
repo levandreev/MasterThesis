@@ -34,7 +34,7 @@ for row in corpus:
     preprocessed_row = ""
     for token in doc:
         # token.is_oov = token out of vocabulary
-        if not token.is_punct and token.is_alpha and (token.tag_ in pos) and not token.is_oov and not token.lemma_ == '-PRON-':
+        if not token.is_punct and token.is_alpha and (token.pos_ in pos) and not token.is_oov and not token.lemma_ == '-PRON-':
             preprocessed_row += (token.lemma_ + ' ')
     preprocessed_corpus.append(preprocessed_row)
 
