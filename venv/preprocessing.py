@@ -41,7 +41,7 @@ for row in corpus:
 
 d = {'sentiment': y, 'document': preprocessed_corpus}
 df = pd.DataFrame(data=d)
-df.to_csv('preprocessed_ag_100k.csv', index = False, header = False)
+df.to_csv('preprocessed_ag_100k_noun.csv', index = False, header = False)
 print(df)
 end = time.time()
 print('Runtime:', end - start)
