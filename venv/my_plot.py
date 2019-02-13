@@ -58,6 +58,7 @@ def calculate_f1_array_per_dataset(slices):
             kf = KFold(n_splits=10)
             y1 = np.array(y)
             avg_f1 = 0
+            avg_acc = 0
             avg_precision = 0
             avg_recall = 0
             avg_mse = 0
