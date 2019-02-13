@@ -7,6 +7,8 @@ from sklearn.model_selection import KFold
 from sklearn.metrics import f1_score
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import classification_report
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 from sklearn.svm import LinearSVC
@@ -44,7 +46,7 @@ def calculate_f1_array_per_dataset(slices):
                 target_class = row[0]
                 corpus.append(clean_row)
                 y.append(int(target_class))
-            tfidf_vectorizer = TfidfVectorizer(norm='l2')
+            tfidf_vectorizer = TfidfVectorizer(norm='l2', ngram_range=(1, 2))
             matrix = tfidf_vectorizer.fit_transform(corpus)
             # sparse = tfidf_vectorizer.fit_transform(corpus).A
             # print(pd.DataFrame(matrix.todense(), columns=tfidf_vectorizer.get_feature_names()))
@@ -70,17 +72,20 @@ def calculate_f1_array_per_dataset(slices):
                 classifier.fit(X_train, y_train)
                 y_pred = classifier.predict(X_test)
                 f1 = f1_score(y_test, y_pred, average='macro')  # y_test = true y, y_pred = predicted y with the classifier
+                accuracy = accuracy_score(y_test, y_pred)
                 mse = mean_squared_error(y_test, y_pred);
                 std_dev = np.std([y_test, y_pred])
                 std_error = std_dev/math.sqrt(slice)
                 precision = precision_score(y_test, y_pred, average='macro')
                 recall = recall_score(y_test, y_pred, average='macro')
                 print('F1 score: ', f1)
+                print('Accuracy score: ', accuracy)
                 print('Precision score: ', precision)
                 print('Recall score: ', recall)
                 print('Mean squared Error: ', mse)
                 print('Standard Deviation: ', std_dev)
                 print('Standard Error: ', std_error)
+                print(classification_report(y_test, y_pred))
                 avg_f1 += f1
                 avg_precision += precision
                 avg_recall += recall
