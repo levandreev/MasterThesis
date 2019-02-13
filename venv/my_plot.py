@@ -38,7 +38,7 @@ def calculate_f1_array_per_dataset(slices):
     corpus = []
     y = []
     plot_f1 = []
-    with open('preprocessed_polarity_100k_v1.csv', newline='') as csvfile:
+    with open('preprocessed_amazon_polarity_100k.csv', newline='') as csvfile:
         yelp = csv.reader(csvfile, delimiter=',')
         for slice in slices:
             for row in itertools.islice(yelp, slice):
@@ -46,7 +46,7 @@ def calculate_f1_array_per_dataset(slices):
                 target_class = row[0]
                 corpus.append(clean_row)
                 y.append(int(target_class))
-            tfidf_vectorizer = TfidfVectorizer(norm='l2', ngram_range=(1, 2))
+            tfidf_vectorizer = TfidfVectorizer(norm='l2', ngram_range=(1, 1))
             matrix = tfidf_vectorizer.fit_transform(corpus)
             # sparse = tfidf_vectorizer.fit_transform(corpus).A
             # print(pd.DataFrame(matrix.todense(), columns=tfidf_vectorizer.get_feature_names()))
@@ -138,8 +138,8 @@ df = pd.DataFrame(data=d)
 # df.to_csv('results_polarity_100k.csv', index = False, header = True)
 
 plt.errorbar(N, plot_f1, std_error_array, linestyle='None', marker='.')
-plt.savefig('polarity_100k_f1_v1.png')
+plt.savefig('amazon_polarity_100k_f1.png')
 plt.clf()
 plt.errorbar(N, plot_accuracy, std_error_array, linestyle='None', marker='.')
-plt.savefig('polarity_100k_acc_v1.png')
+plt.savefig('amazon_polarity_100k_acc.png')
 
