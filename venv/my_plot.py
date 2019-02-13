@@ -28,7 +28,7 @@ plot_f1 = []
 mse_array = []
 std_dev_array = []
 std_error_array = []
-
+plot_accuracy = []
 
 def calculate_f1_array_per_dataset(slices):
     # classifier = GaussianNB()
@@ -86,6 +86,7 @@ def calculate_f1_array_per_dataset(slices):
                 print('Standard Deviation: ', std_dev)
                 print('Standard Error: ', std_error)
                 print(classification_report(y_test, y_pred))
+                avg_acc += accuracy
                 avg_f1 += f1
                 avg_precision += precision
                 avg_recall += recall
@@ -96,6 +97,7 @@ def calculate_f1_array_per_dataset(slices):
             avg_recall = avg_recall / splits
             avg_precision = avg_precision / splits
             avg_f1 = avg_f1 / splits
+            avg_acc = avg_acc / splits
             avg_mse = avg_mse / splits
             avg_std_dev = avg_std_dev / splits
             avg_std_error = avg_std_error / splits
@@ -103,6 +105,7 @@ def calculate_f1_array_per_dataset(slices):
             std_dev_array.append(avg_std_dev)
             std_error_array.append(avg_std_error)
             print('----------------------')
+            print('Average Accuracy:', avg_acc)
             print('Average Precision:', avg_precision)
             print('Average Recall:', avg_recall)
             print('Average F1', avg_f1)
@@ -112,6 +115,7 @@ def calculate_f1_array_per_dataset(slices):
             print('Runtime:', end - start)
             # return avg_f1
             plot_f1.append(avg_f1)
+            plot_accuracy.append(avg_acc)
     return plot_f1
 
 
@@ -127,13 +131,13 @@ print('MSE values', mse_array)
 print('Standatd Deviation values', std_dev_array)
 print('Standatd Error values', std_error_array)
 # plt.plot(plot_f1, 'ro')
-plt.errorbar(N, plot_f1, std_error_array, linestyle='None', marker='.')
-d ={'F1': plot_f1, 'Standard Error': std_error_array}
-df = pd.DataFrame(data=d)
-# print(df)
-# plt.ylim(0.80, 0.88)
-# plt.show()
 
+d ={'F1': plot_f1, 'Standard Error': std_error_array, 'Accuracy': plot_accuracy}
+df = pd.DataFrame(data=d)
 df.to_csv('results_yahoo_100k_verb_adj.csv', index = False, header = True)
 
+plt.errorbar(N, plot_f1, std_error_array, linestyle='None', marker='.')
 plt.savefig('yahoo_100k_verb_adj.png')
+plt.errorbar(N, plot_accuracy, std_error_array, linestyle='None', marker='.')
+plt.savefig('yahoo_100k_acc_verb_adj.png')
+
