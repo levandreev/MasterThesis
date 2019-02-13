@@ -12,7 +12,7 @@ N = 100000
 # nlp = spacy.load('en_core_web_sm') # Language Model small
 nlp = spacy.load('en_core_web_md') # Language Model medium
 start = time.time()
-with open('shuffled_amazon_polarity_100k.csv', newline='', encoding="utf8") as csvfile:
+with open('shuffled_ag_100k.csv', newline='', encoding="utf8") as csvfile:
     yelp = csv.reader(csvfile, delimiter=',')
     for row in itertools.islice(yelp, N):
          rows = row[1:]
@@ -28,7 +28,8 @@ with open('shuffled_amazon_polarity_100k.csv', newline='', encoding="utf8") as c
          y.append(int(target_class))
 
 preprocessed_corpus = []
-pos = ['NOUN', 'ADJ', 'VERB', 'ADV']
+# 'NOUN', 'ADJ', 'VERB', 'ADV'
+pos = ['NOUN']
 for row in corpus:
     doc = nlp(row)
     preprocessed_row = ""
@@ -40,7 +41,7 @@ for row in corpus:
 
 d = {'sentiment': y, 'document': preprocessed_corpus}
 df = pd.DataFrame(data=d)
-df.to_csv('preprocessed_amazon_polarity_100k.csv', index = False, header = False)
+df.to_csv('preprocessed_ag_100k.csv', index = False, header = False)
 print(df)
 end = time.time()
 print('Runtime:', end - start)
