@@ -38,7 +38,7 @@ def calculate_f1_array_per_dataset(slices):
     corpus = []
     y = []
     plot_f1 = []
-    with open('preprocessed_yahoo_100k_nouns_adj_v1.csv', newline='') as csvfile:
+    with open('preprocessed_yahoo_100k_verb_adj_v1.csv', newline='') as csvfile:
         yelp = csv.reader(csvfile, delimiter=',')
         for slice in slices:
             for row in itertools.islice(yelp, slice):
@@ -134,6 +134,6 @@ df = pd.DataFrame(data=d)
 # plt.ylim(0.80, 0.88)
 # plt.show()
 
-df.to_csv('results_yahoo_100k_nouns_adj.csv', index = False, header = True)
+df.to_csv('results_yahoo_100k_verb_adj.csv', index = False, header = True)
 
-plt.savefig('yahoo_100k_nouns_adj.png')
+plt.savefig('yahoo_100k_verb_adj.png')
