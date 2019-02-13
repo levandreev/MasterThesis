@@ -7,12 +7,12 @@ import re
 
 corpus = []
 y = []
-N = 1000
+N = 100000
 
 # nlp = spacy.load('en_core_web_sm') # Language Model small
 nlp = spacy.load('en_core_web_md') # Language Model medium
 start = time.time()
-with open('shuffled_yahoo_1k_test.csv', newline='', encoding="utf8") as csvfile:
+with open('shuffled_amazon_polarity_100k.csv', newline='', encoding="utf8") as csvfile:
     yelp = csv.reader(csvfile, delimiter=',')
     for row in itertools.islice(yelp, N):
          rows = row[1:]
@@ -28,18 +28,19 @@ with open('shuffled_yahoo_1k_test.csv', newline='', encoding="utf8") as csvfile:
          y.append(int(target_class))
 
 preprocessed_corpus = []
+pos = ['NOUN', 'ADJ', 'VERB', 'ADV']
 for row in corpus:
     doc = nlp(row)
     preprocessed_row = ""
     for token in doc:
         # token.is_oov = token out of vocabulary
-        if not token.is_punct and token.is_alpha and (token.tag_ == 'NN' or token.tag_ == 'NNS' or token.tag_ == 'NNP' or token.tag_ == 'NNPS') and not token.is_oov:
+        if not token.is_punct and token.is_alpha and (token.tag_ in pos) and not token.is_oov and not token.lemma_ == '-PRON-':
             preprocessed_row += (token.lemma_ + ' ')
     preprocessed_corpus.append(preprocessed_row)
 
 d = {'sentiment': y, 'document': preprocessed_corpus}
 df = pd.DataFrame(data=d)
-df.to_csv('preprocessed_yahoo_1k_test.csv', index = False, header = False)
+df.to_csv('preprocessed_amazon_polarity_100k.csv', index = False, header = False)
 print(df)
 end = time.time()
 print('Runtime:', end - start)
