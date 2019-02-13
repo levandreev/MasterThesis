@@ -139,6 +139,7 @@ df = pd.DataFrame(data=d)
 
 plt.errorbar(N, plot_f1, std_error_array, linestyle='None', marker='.')
 plt.savefig('polarity_100k_f1_v1.png')
+plt.clf()
 plt.errorbar(N, plot_accuracy, std_error_array, linestyle='None', marker='.')
 plt.savefig('polarity_100k_acc_v1.png')
 
