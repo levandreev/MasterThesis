@@ -12,7 +12,7 @@ N = 100000
 # nlp = spacy.load('en_core_web_sm') # Language Model small
 nlp = spacy.load('en_core_web_md') # Language Model medium
 start = time.time()
-with open('shuffled_dbpedia_100k.csv', newline='', encoding="utf8") as csvfile:
+with open('shuffled_polarity_100k_v1.csv', newline='', encoding="utf8") as csvfile:
     yelp = csv.reader(csvfile, delimiter=',')
     for row in itertools.islice(yelp, N):
          rows = row[1:]
@@ -41,7 +41,7 @@ for row in corpus:
 
 d = {'sentiment': y, 'document': preprocessed_corpus}
 df = pd.DataFrame(data=d)
-df.to_csv('preprocessed_dbpedia_100k_nouns.csv', index = False, header = False)
+df.to_csv('yelp_pol_nouns.csv', index = False, header = False)
 print(df)
 end = time.time()
 print('Runtime:', end - start)
