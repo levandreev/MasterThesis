@@ -70,8 +70,9 @@ def calculate_f1_array_per_dataset(slices):
                 # X_train, X_test = sparse[train_index], sparse[test_index]
                 X_train, X_test = matrix[train_index], matrix[test_index]
                 y_train, y_test = y1[train_index], y1[test_index]
-                classifier.fit(X_train, y_train)
-                y_pred = classifier.predict(X_test)
+#               use X_train and X_test .toarray() when using NB
+                classifier.fit(X_train.toarray(), y_train)
+                y_pred = classifier.predict(X_test.toarray())
                 f1 = f1_score(y_test, y_pred, average='macro')  # y_test = true y, y_pred = predicted y with the classifier
                 accuracy = accuracy_score(y_test, y_pred)
                 mse = mean_squared_error(y_test, y_pred);
@@ -135,7 +136,7 @@ print('Standatd Error values', std_error_array)
 
 d ={'F1': plot_f1, 'Standard Error': std_error_array, 'Accuracy': plot_accuracy}
 df = pd.DataFrame(data=d)
-# df.to_csv('results_polarity_100k.csv', index = False, header = True)
+df.to_csv('results_dpbedia_allpostags_nb_stop.csv', index = False, header = True)
 
 plt.errorbar(N, plot_f1, std_error_array, linestyle='None', marker='.')
 plt.savefig('dpbedia_allpostags_nb_stop_f1.png')
