@@ -29,7 +29,7 @@ with open('shuffled_polarity_100k_v1.csv', newline='', encoding="utf8") as csvfi
 
 preprocessed_corpus = []
 # 'NOUN', 'ADJ', 'VERB', 'ADV'
-pos = ['NOUN']
+pos = ['NOUN', 'ADJ', 'VERB', 'ADV']
 for row in corpus:
     doc = nlp(row)
     preprocessed_row = ""
