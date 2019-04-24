@@ -31,9 +31,9 @@ std_error_array = []
 plot_accuracy = []
 
 def calculate_f1_array_per_dataset(slices):
-    # classifier = GaussianNB()
+    classifier = GaussianNB()
     # classifier = SVC(kernel='rbf') # Gives warning
-    classifier = LinearSVC(random_state=0, tol=1e-5, C=1)
+#     classifier = LinearSVC(random_state=0, tol=1e-5, C=1)
     # classifier = KNeighborsClassifier(n_neighbors=3)
     corpus = []
     y = []
@@ -138,8 +138,8 @@ df = pd.DataFrame(data=d)
 # df.to_csv('results_polarity_100k.csv', index = False, header = True)
 
 plt.errorbar(N, plot_f1, std_error_array, linestyle='None', marker='.')
-plt.savefig('dpbedia_allpostags_svm1_stop_f1.png')
+plt.savefig('dpbedia_allpostags_nb_stop_f1.png')
 plt.clf()
 plt.errorbar(N, plot_accuracy, std_error_array, linestyle='None', marker='.')
-plt.savefig('dpbedia_allpostags_svm1_stop_acc.png')
+plt.savefig('dpbedia_allpostags_nb_stop_acc.png')
 
