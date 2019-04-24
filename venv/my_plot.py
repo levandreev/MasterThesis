@@ -22,8 +22,10 @@ from sklearn.utils.fixes import signature
 import itertools
 import math
 
-N = [10000,20000,30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000]
-# N = [5000, 10000]
+# Batches used for SVM
+# N = [10000,20000,30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000]
+# Batches used for for Naive Bayes
+N = [1000, 5000, 10000, 15000, 20000]
 plot_f1 = []
 mse_array = []
 std_dev_array = []
@@ -136,11 +138,11 @@ print('Standatd Error values', std_error_array)
 
 d ={'F1': plot_f1, 'Standard Error': std_error_array, 'Accuracy': plot_accuracy}
 df = pd.DataFrame(data=d)
-df.to_csv('results_dpbedia_allpostags_nb_stop.csv', index = False, header = True)
+df.to_csv('results_dpbedia_allpostags_nb_stop_unigram.csv', index = False, header = True)
 
 plt.errorbar(N, plot_f1, std_error_array, linestyle='None', marker='.')
-plt.savefig('dpbedia_allpostags_nb_stop_f1.png')
+plt.savefig('dpbedia_allpostags_nb_stop_unigram_f1.png')
 plt.clf()
 plt.errorbar(N, plot_accuracy, std_error_array, linestyle='None', marker='.')
-plt.savefig('dpbedia_allpostags_nb_stop_acc.png')
+plt.savefig('dpbedia_allpostags_nb_stop_unigram_acc.png')
 
