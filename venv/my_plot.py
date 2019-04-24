@@ -34,7 +34,7 @@ plot_accuracy = []
 def calculate_f1_array_per_dataset(slices):
 #     classifier = GaussianNB()
     # classifier = SVC(kernel='rbf') # Gives warning
-    classifier = LinearSVC(random_state=0, tol=1e-5, C=100)
+    classifier = LinearSVC(random_state=0, tol=1e-5, C=1)
     # classifier = KNeighborsClassifier(n_neighbors=3)
     corpus = []
     y = []
@@ -47,7 +47,7 @@ def calculate_f1_array_per_dataset(slices):
                 target_class = row[0]
                 corpus.append(clean_row)
                 y.append(int(target_class))
-            tfidf_vectorizer = TfidfVectorizer(norm='l2', stop_words='english', ngram_range=(1, 1))
+            tfidf_vectorizer = TfidfVectorizer(norm='l2', stop_words='english', ngram_range=(2, 2))
             matrix = tfidf_vectorizer.fit_transform(corpus)
             # sparse = tfidf_vectorizer.fit_transform(corpus).A
             # print(pd.DataFrame(matrix.todense(), columns=tfidf_vectorizer.get_feature_names()))
@@ -137,11 +137,11 @@ print('Standatd Error values', std_error_array)
 
 d ={'F1': plot_f1, 'Standard Error': std_error_array, 'Accuracy': plot_accuracy}
 df = pd.DataFrame(data=d)
-df.to_csv('results_dbpedia_allpostags_svm100_stop_unigram.csv', index = False, header = True)
+df.to_csv('results_dbpedia_allpostags_svm1_stop_bigram.csv', index = False, header = True)
 
 plt.errorbar(N, plot_f1, std_error_array, linestyle='None', marker='.')
-plt.savefig('dbpedia_allpostags_svm100_stop_unigram_f1.png')
+plt.savefig('dbpedia_allpostags_svm1_stop_bigram_f1.png')
 plt.clf()
 plt.errorbar(N, plot_accuracy, std_error_array, linestyle='None', marker='.')
-plt.savefig('dbpedia_allpostags_svm100_stop_unigram_acc.png')
+plt.savefig('dbpedia_allpostags_svm1_stop_bigram_acc.png')
 
