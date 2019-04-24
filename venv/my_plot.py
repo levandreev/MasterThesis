@@ -23,9 +23,8 @@ import itertools
 import math
 
 # Batches used for SVM
-# N = [10000,20000,30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000]
-# Batches used for for Naive Bayes
-N = [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000]
+N = [10000,20000,30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000]
+
 plot_f1 = []
 mse_array = []
 std_dev_array = []
@@ -33,9 +32,9 @@ std_error_array = []
 plot_accuracy = []
 
 def calculate_f1_array_per_dataset(slices):
-    classifier = GaussianNB()
+#     classifier = GaussianNB()
     # classifier = SVC(kernel='rbf') # Gives warning
-#     classifier = LinearSVC(random_state=0, tol=1e-5, C=1)
+    classifier = LinearSVC(random_state=0, tol=1e-5, C=100)
     # classifier = KNeighborsClassifier(n_neighbors=3)
     corpus = []
     y = []
@@ -73,8 +72,8 @@ def calculate_f1_array_per_dataset(slices):
                 X_train, X_test = matrix[train_index], matrix[test_index]
                 y_train, y_test = y1[train_index], y1[test_index]
 #               use X_train and X_test .toarray() when using NB
-                classifier.fit(X_train.toarray(), y_train)
-                y_pred = classifier.predict(X_test.toarray())
+                classifier.fit(X_train, y_train)
+                y_pred = classifier.predict(X_test)
                 f1 = f1_score(y_test, y_pred, average='macro')  # y_test = true y, y_pred = predicted y with the classifier
                 accuracy = accuracy_score(y_test, y_pred)
                 mse = mean_squared_error(y_test, y_pred);
@@ -138,11 +137,11 @@ print('Standatd Error values', std_error_array)
 
 d ={'F1': plot_f1, 'Standard Error': std_error_array, 'Accuracy': plot_accuracy}
 df = pd.DataFrame(data=d)
-df.to_csv('results_dbpedia_allpostags_nb_stop_unigram.csv', index = False, header = True)
+df.to_csv('results_dbpedia_allpostags_svm100_stop_unigram.csv', index = False, header = True)
 
 plt.errorbar(N, plot_f1, std_error_array, linestyle='None', marker='.')
-plt.savefig('dbpedia_allpostags_nb_stop_unigram_f1.png')
+plt.savefig('dbpedia_allpostags_svm100_stop_unigram_f1.png')
 plt.clf()
 plt.errorbar(N, plot_accuracy, std_error_array, linestyle='None', marker='.')
-plt.savefig('dbpedia_allpostags_nb_stop_unigram_acc.png')
+plt.savefig('dbpedia_allpostags_svm100_stop_unigram_acc.png')
 
