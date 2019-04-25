@@ -34,7 +34,7 @@ plot_accuracy = []
 def calculate_f1_array_per_dataset(slices):
 #     classifier = GaussianNB()
     # classifier = SVC(kernel='rbf') # Gives warning
-    classifier = LinearSVC(random_state=0, tol=1e-5, C=1)
+    classifier = LinearSVC(random_state=0, tol=1e-5, C=10)
     # classifier = KNeighborsClassifier(n_neighbors=3)
     corpus = []
     y = []
@@ -137,11 +137,11 @@ print('Standatd Error values', std_error_array)
 
 d ={'F1': plot_f1, 'Standard Error': std_error_array, 'Accuracy': plot_accuracy}
 df = pd.DataFrame(data=d)
-df.to_csv('results_dbpedia_nouns_svm1_stop_unigram.csv', index = False, header = True)
+df.to_csv('results_dbpedia_nouns_svm10_stop_unigram.csv', index = False, header = True)
 
 plt.errorbar(N, plot_f1, std_error_array, linestyle='None', marker='.')
-plt.savefig('dbpedia_nouns_svm1_stop_unigram_f1.png')
+plt.savefig('dbpedia_nouns_svm10_stop_unigram_f1.png')
 plt.clf()
 plt.errorbar(N, plot_accuracy, std_error_array, linestyle='None', marker='.')
-plt.savefig('dbpedia_nouns_svm1_stop_unigram_acc.png')
+plt.savefig('dbpedia_nouns_svm10_stop_unigram_acc.png')
 
