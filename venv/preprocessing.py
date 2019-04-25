@@ -29,7 +29,7 @@ with open('shuffled_yahoo_100k_v1.csv', newline='', encoding="utf8") as csvfile:
 
 preprocessed_corpus = []
 # 'NOUN', 'ADJ', 'VERB', 'ADV'
-pos = ['NOUN', 'ADJ', 'VERB', 'ADV']
+pos = ['NOUN']
 for row in corpus:
     doc = nlp(row)
     preprocessed_row = ""
@@ -41,7 +41,7 @@ for row in corpus:
 
 d = {'sentiment': y, 'document': preprocessed_corpus}
 df = pd.DataFrame(data=d)
-df.to_csv('yahoo_all_pos_tags.csv', index = False, header = False)
+df.to_csv('yahoo_nouns.csv', index = False, header = False)
 print(df)
 end = time.time()
 print('Runtime:', end - start)
