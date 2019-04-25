@@ -29,7 +29,7 @@ with open('shuffled_amazon_polarity_100k.csv', newline='', encoding="utf8") as c
 
 preprocessed_corpus = []
 # 'NOUN', 'ADJ', 'VERB', 'ADV'
-pos = ['NOUN']
+pos = ['NOUN', 'ADJ', 'VERB', 'ADV']
 for row in corpus:
     doc = nlp(row)
     preprocessed_row = ""
@@ -41,7 +41,7 @@ for row in corpus:
 
 d = {'sentiment': y, 'document': preprocessed_corpus}
 df = pd.DataFrame(data=d)
-df.to_csv('amazon_pol_nouns.csv', index = False, header = False)
+df.to_csv('amazon_pol_all_pos_tags.csv', index = False, header = False)
 print(df)
 end = time.time()
 print('Runtime:', end - start)
