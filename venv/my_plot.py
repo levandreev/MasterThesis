@@ -39,7 +39,7 @@ def calculate_f1_array_per_dataset(slices):
     corpus = []
     y = []
     plot_f1 = []
-    with open('yelp_full_nouns.csv', newline='') as csvfile:
+    with open('amazon_pol_all_pos_tags.csv', newline='') as csvfile:
         yelp = csv.reader(csvfile, delimiter=',')
         for slice in slices:
             for row in itertools.islice(yelp, slice):
@@ -48,7 +48,7 @@ def calculate_f1_array_per_dataset(slices):
                 corpus.append(clean_row)
                 y.append(int(target_class))
 #             tfidf_vectorizer = TfidfVectorizer(norm='l2', stop_words='english', ngram_range=(1, 1))
-            tfidf_vectorizer = TfidfVectorizer(norm='l2', ngram_range=(1, 2))
+            tfidf_vectorizer = TfidfVectorizer(norm='l2', ngram_range=(1, 1))
             matrix = tfidf_vectorizer.fit_transform(corpus)
             # sparse = tfidf_vectorizer.fit_transform(corpus).A
             # print(pd.DataFrame(matrix.todense(), columns=tfidf_vectorizer.get_feature_names()))
@@ -138,11 +138,11 @@ print('Standatd Error values', std_error_array)
 
 d ={'F1': plot_f1, 'Standard Error': std_error_array, 'Accuracy': plot_accuracy}
 df = pd.DataFrame(data=d)
-df.to_csv('results_yelp_full_allpos_svm1_wstop_1-2gram.csv', index = False, header = True)
+df.to_csv('results_amazon_pol_allpos_svm1_wstop_unigram.csv', index = False, header = True)
 
 plt.errorbar(N, plot_f1, std_error_array, linestyle='None', marker='.')
-plt.savefig('yelp_full_nouns_svm1_wstop_1-2gram_f1.png')
+plt.savefig('amazon_pol_allpos_svm1_wstop_unigram_f1.png')
 plt.clf()
 plt.errorbar(N, plot_accuracy, std_error_array, linestyle='None', marker='.')
-plt.savefig('yelp_full_nouns_svm1_wstop_1-2gram_acc.png')
+plt.savefig('amazon_pol_allpos_svm1_wstop_unigram_acc.png')
 
