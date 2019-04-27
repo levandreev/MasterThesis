@@ -47,8 +47,8 @@ def calculate_f1_array_per_dataset(slices):
                 target_class = row[0]
                 corpus.append(clean_row)
                 y.append(int(target_class))
-#             tfidf_vectorizer = TfidfVectorizer(norm='l2', stop_words='english', ngram_range=(1, 1))
-            tfidf_vectorizer = TfidfVectorizer(norm='l2', ngram_range=(1, 1))
+            tfidf_vectorizer = TfidfVectorizer(norm='l2', stop_words='english', ngram_range=(1, 2))
+#             tfidf_vectorizer = TfidfVectorizer(norm='l2', ngram_range=(1, 1))
             matrix = tfidf_vectorizer.fit_transform(corpus)
             # sparse = tfidf_vectorizer.fit_transform(corpus).A
             # print(pd.DataFrame(matrix.todense(), columns=tfidf_vectorizer.get_feature_names()))
@@ -138,11 +138,11 @@ print('Standatd Error values', std_error_array)
 
 d ={'F1': plot_f1, 'Standard Error': std_error_array, 'Accuracy': plot_accuracy}
 df = pd.DataFrame(data=d)
-df.to_csv('results_yahoo_allpos_svm1_wstop_unigram.csv', index = False, header = True)
+df.to_csv('results_yahoo_allpos_svm1_stop_1-2gram.csv', index = False, header = True)
 
 plt.errorbar(N, plot_f1, std_error_array, linestyle='None', marker='.')
-plt.savefig('yahoo_allpos_svm1_wstop_unigram_f1.png')
+plt.savefig('yahoo_allpos_svm1_stop_1-2gram_f1.png')
 plt.clf()
 plt.errorbar(N, plot_accuracy, std_error_array, linestyle='None', marker='.')
-plt.savefig('yahoo_allpos_svm1_wstop_unigram_acc.png')
+plt.savefig('yahoo_allpos_svm1_stop_1-2gram_acc.png')
 
