@@ -39,7 +39,7 @@ def calculate_f1_array_per_dataset(slices):
     corpus = []
     y = []
     plot_f1 = []
-    with open('ag_nouns.csv', newline='') as csvfile:
+    with open('preprocessed_dbpedia_100k_all_pos_tags.csv', newline='') as csvfile:
         yelp = csv.reader(csvfile, delimiter=',')
         for slice in slices:
             for row in itertools.islice(yelp, slice):
@@ -138,11 +138,11 @@ print('Standatd Error values', std_error_array)
 
 d ={'F1': plot_f1, 'Standard Error': std_error_array, 'Accuracy': plot_accuracy}
 df = pd.DataFrame(data=d)
-df.to_csv('results_ag_nouns_svm1_stop_unigram.csv', index = False, header = True)
+df.to_csv('results_dbpedia_allpos_svm1_stop_unigram.csv', index = False, header = True)
 
 plt.errorbar(N, plot_f1, std_error_array, linestyle='None', marker='.')
-plt.savefig('ag_nouns_svm1_stop_unigram_f1.png')
+# plt.savefig('ag_nouns_svm1_stop_unigram_f1.png')
 plt.clf()
 plt.errorbar(N, plot_accuracy, std_error_array, linestyle='None', marker='.')
-plt.savefig('ag_nouns_svm1_stop_unigram_acc.png')
+# plt.savefig('ag_nouns_svm1_stop_unigram_acc.png')
 
